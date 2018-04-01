@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var productSchema = new Schema({
-    // imagePath: {type: String, required: true},
+var schema = new Schema({
     title: {type: String, required: true},
     type: {type: String, required: true},
     description: {type: String, required: true},
@@ -10,4 +9,4 @@ var productSchema = new Schema({
     featured: {type: Boolean}
 });
 
-module.exports = mongoose.model('Product', productSchema);
+module.exports = mongoose.model('Product', schema);

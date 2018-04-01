@@ -30,7 +30,7 @@ router.get('/loginWithError', function (req, res, next) {
     res.send($.html());
 });
 
-router.get('/productList', function (req, res, next) {
+router.get('/productList', isLoggedIn, function (req, res, next) {
     var filePath = path.join(__dirname, '/../views/productList.html');
     var $ = cheerio.load(fs.readFileSync(filePath));
 
@@ -57,6 +57,17 @@ router.get('/shoppingCart', isLoggedIn, function (req, res, next) {
     var navContent = getNavBar(req.user);
 
     $('nav-bar').replaceWith(navContent);
+    res.send($.html());
+});
+
+router.get('/successCheckOut', isLoggedIn, function (req, res, next) {
+    var filePath = path.join(__dirname, '/../views/productList.html');
+    var $ = cheerio.load(fs.readFileSync(filePath));
+
+    var navContent = getNavBar(req.user);
+    $('nav-bar').replaceWith(navContent);
+
+    $('#sys-msg').html('<strong>Transaction Success!</strong>')
     res.send($.html());
 });
 
