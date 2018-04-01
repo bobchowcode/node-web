@@ -5,7 +5,7 @@ var Order = require('../models/order');
 
 router.post('/checkout', isLoggedIn, function (req, res, next) {
     var order = new Order({
-        user: req.session.user,
+        user: req.user,
         cart: req.session.cartList,
         address: req.body.addr,
         ccNo: req.body.cc_num
