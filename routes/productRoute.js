@@ -19,13 +19,27 @@ router.post('/addToCart', function (req, res, next) {
     console.log("addToCart");
     console.log(req.session);
     var cartList;
+    var newProduct = true;
     if (req.session.cartList) {
         cartList = req.session.cartList;
     } else {
         cartList = [];
     }
-    console.log(req.body);
-    cartList.push(req.body);
+    req.body.quantity = 1;
+    if (cartList.length == 0) {
+        cartList.push(req.body);
+    } else {
+        for (var i = 0; i < cartList.length; i++) {
+            if (cartList[i]._id === req.body._id) {
+                cartList[i].quantity++;
+                newProduct = false;
+                break;
+            }
+        }
+        if (newProduct) {
+            cartList.push(req.body);
+        }
+    }
     req.session.cartList = cartList;
 
     res.send("success");

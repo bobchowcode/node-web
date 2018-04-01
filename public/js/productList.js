@@ -37,25 +37,27 @@ $(document).ready(function() {
                 $(product_name).html(data[i].title);
                 $(product_desc).html(data[i].description);
                 $(product_price).html("HK" + currency(data[i].price, {formatWithSymbol:true}).format());
-                $(product_button).on("click", function() {
-                    $.ajax({
-                        url: "/product/addToCart",
-                        method: "POST",
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        data: product,
-                        success: function(data) {
-                            if (data === "success") {
-                                alert("success");
-                            } else {
-                                alert("abc");
-                            }
-                        }
-                    });
-                });
+                $(product_button).bind("click", addToCart(product));
 
                 $(product_list).append(product_clone);
             }
         }
     });
+
+    function addToCart(product) {
+        $.ajax({
+            url: "/product/addToCart",
+            method: "POST",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(product),
+            success: function(data) {
+                if (data === "success") {
+                    alert("success");
+                } else {
+                    alert("abc");
+                }
+            }
+        });
+    }
 });
