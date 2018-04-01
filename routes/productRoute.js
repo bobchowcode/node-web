@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var formidable = require('formidable');
 var fs = require('fs');
-var path = require('path')
+var path = require('path');
+var _ = require('lodash');
 
 var Product = require('../models/product');
 
@@ -19,7 +20,6 @@ router.post('/addToCart', function (req, res, next) {
     console.log("addToCart");
     console.log(req.session);
     var cartList;
-    var newProduct = true;
     if (req.session.cartList) {
         cartList = req.session.cartList;
     } else {
@@ -29,14 +29,12 @@ router.post('/addToCart', function (req, res, next) {
     if (cartList.length == 0) {
         cartList.push(req.body);
     } else {
-        for (var i = 0; i < cartList.length; i++) {
-            if (cartList[i]._id === req.body._id) {
-                cartList[i].quantity++;
-                newProduct = false;
-                break;
-            }
-        }
-        if (newProduct) {
+        var idx = _.findIndex(cartList, function(o) {
+            return o._id === req.body._id;
+        });
+        if (idx >= 0) {
+            cartList[idx].quantity++;
+        } else {
             cartList.push(req.body);
         }
     }
@@ -60,6 +58,33 @@ router.get('/getCartList', function (req, res, next) {
     console.log(req.session);
 
     res.send(req.session.cartList);
+});
+
+router.post('/minusProduct', function (req, res, next) {
+    console.log("minusProduct");
+    console.log(req.session);
+    var cartList;
+    if (req.session.cartList) {
+        cartList = req.session.cartList;
+    } else {
+        cartList = [];
+    }
+    if (cartList.length > 0) {
+        var idx = _.findIndex(cartList, function(o) {
+            return o._id === req.body._id;
+        });
+        if (idx >= 0) {
+            cartList[idx].quantity--;
+        }
+        if (cartList[idx].quantity <= 0) {
+            _.remove(cartList, function(o) {
+                return o._id === cartList[idx]._id;
+            });
+        }
+    }
+    req.session.cartList = cartList;
+
+    res.send("success");
 });
 
 router.post('/createNewProduct', function (req, res) {
