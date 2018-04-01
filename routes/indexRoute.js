@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
     var filePath = path.join(__dirname, '/../views/index.html');
     var $ = cheerio.load(fs.readFileSync(filePath));
 
-    var navContent = cheerio.load(fs.readFileSync(path.join(__dirname, '/../views/nav-bar.html'))).html();
+    var navContent = getNavBar(req.user);
 
     $('nav-bar').replaceWith(navContent);
     res.send($.html());
@@ -30,11 +30,11 @@ router.get('/loginWithError', function (req, res, next) {
     res.send($.html());
 });
 
-router.get('/productList', function (req, res, next) {
+router.get('/productList', isLoggedIn, function (req, res, next) {
     var filePath = path.join(__dirname, '/../views/productList.html');
     var $ = cheerio.load(fs.readFileSync(filePath));
 
-    var navContent = cheerio.load(fs.readFileSync(path.join(__dirname, '/../views/nav-bar.html'))).html();
+    var navContent = getNavBar(req.user);
 
     $('nav-bar').replaceWith(navContent);
     res.send($.html());
@@ -44,7 +44,7 @@ router.get('/createProduct', function (req, res, next) {
     var filePath = path.join(__dirname, '/../views/createProduct.html');
     var $ = cheerio.load(fs.readFileSync(filePath));
 
-    var navContent = cheerio.load(fs.readFileSync(path.join(__dirname, '/../views/nav-bar.html'))).html();
+    var navContent = getNavBar(req.user);
 
     $('nav-bar').replaceWith(navContent);
     res.send($.html());
@@ -66,13 +66,13 @@ router.get('/shoppingCart', function (req, res, next) {
 //     res.send("ooo");
 // });
 
-router.get('/checkout', isLoggedIn, function (req, res, next) {
-    res.render('shop/checkout', {
-        total: cart.totalPrice,
-        errMsg: errMsg,
-        noError: !errMsg
-    });
-});
+// router.get('/checkout', isLoggedIn, function (req, res, next) {
+//     res.render('shop/checkout', {
+//         total: cart.totalPrice,
+//         errMsg: errMsg,
+//         noError: !errMsg
+//     });
+// });
 
 // As with any middleware it is quintessential to call next()
 // if the user is authenticated
@@ -82,6 +82,16 @@ function isLoggedIn(req, res, next) {
         return next();
     }
     res.redirect('/');
+}
+
+function getNavBar(user) {
+    var navContent;   
+    if (user) {
+        navContent = cheerio.load(fs.readFileSync(path.join(__dirname, '/../views/nav-bar-user.html'))).html();
+    } else {
+        navContent = cheerio.load(fs.readFileSync(path.join(__dirname, '/../views/nav-bar-guest.html'))).html();
+    }
+    return navContent;
 }
 
 module.exports = router;
