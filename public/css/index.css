@@ -26,3 +26,7 @@ address {
 #product_row {
     display: none;
 }
+
+footer.row-footer {
+    background-color: rgb(248, 250, 159);
+}
