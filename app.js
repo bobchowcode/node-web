@@ -27,7 +27,7 @@ app.use(session({
     secret: '4346E88ED53FDE699158DAE8CDF7B', 
     store: new MongoStore({ url: mongodbUrl }),
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { maxAge: 60 * 60 * 1000 }
 }));
 app.use(flash());
