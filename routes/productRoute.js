@@ -44,4 +44,30 @@ router.get('/getCartList', function (req, res, next) {
     res.send(req.session.cartList);
 });
 
+router.post('/createNewProduct', function(req, res) {
+    var form = new formidable.IncomingForm();
+    form.encoding = 'utf-8';
+    form.uploadDir = path.join(__dirname, '/../public/images');
+    form.multiples = false;
+    form.keepExtensions = true;
+    form.parse(req, function(err, fields, files) {
+        if (err) throw err;
+        console.log(fields);
+        console.log(files);
+    });
+
+    form.on('file', function(name, file){
+        console.log(name + ': ' + file.name);
+        fs.rename(file.path, path.join(form.uploadDir, file.name), function (err) {
+            if (err) throw err;
+        });
+    });
+    form.on('field', function(name, value) {
+        console.log(name + ': ' + value);
+    });
+    form.on('end', function() {
+        res.end();
+    });
+});
+
 module.exports = router;
