@@ -21,6 +21,7 @@ router.post('/addToCart', function (req, res, next) {
     } else {
         cartList = [];
     }
+    console.log(req.body);
     cartList.push(req.body);
     req.session.cartList = cartList;
 
