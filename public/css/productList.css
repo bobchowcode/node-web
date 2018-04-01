@@ -13,3 +13,15 @@
     width: 240px;
     height: 300px;
 }
+.product_title, .product_price {
+    font-weight: bold;
+}
+.product_button button {
+    width: 150px;
+    margin: auto;
+}
+@media (max-width: 768px) {
+    .product_button button {
+        width: 100%;
+    }
+}
