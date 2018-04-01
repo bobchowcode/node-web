@@ -31,7 +31,7 @@ $(document).ready(function () {
         $(product_price).attr("id", product_id + "_price");
         $(product_button_div).attr("id", product_id + "_button");
 
-        $(product_image).html("");
+        $(product_image).attr("src", "images/"+product._id+".png");
         $(product_title).html(data.title);
         $(product_desc).html(data.description);
         $(product_price).html("HK" + currency(data.price, { formatWithSymbol: true }).format());
