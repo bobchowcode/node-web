@@ -41,9 +41,9 @@ $(document).ready(function() {
                     $.ajax({
                         url: "/product/addToCart",
                         method: "POST",
-                        contentType: 'application/json; charset=utf-8',
+                        contentType: "application/json; charset=utf-8",
                         dataType: "json",
-                        data: { product: JSON.stringify(product) },
+                        data: product,
                         success: function(data) {
                             if (data === "success") {
                                 alert("success");

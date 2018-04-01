@@ -10,7 +10,27 @@ router.get('/', function (req, res, next) {
 
     var navContent = cheerio.load(fs.readFileSync(path.join(__dirname, '/../views/nav-bar.html'))).html();
 
-    $('nav-bar').replaceWith(headerContent);
+    $('nav-bar').replaceWith(navContent);
+    res.send($.html());
+});
+
+router.get('/productList', function (req, res, next) {
+    var filePath = path.join(__dirname, '/../views/productList.html');
+    var $ = cheerio.load(fs.readFileSync(filePath));
+
+    var navContent = cheerio.load(fs.readFileSync(path.join(__dirname, '/../views/nav-bar.html'))).html();
+
+    $('nav-bar').replaceWith(navContent);
+    res.send($.html());
+});
+
+router.get('/createProduct', function (req, res, next) {
+    var filePath = path.join(__dirname, '/../views/createProduct.html');
+    var $ = cheerio.load(fs.readFileSync(filePath));
+
+    var navContent = cheerio.load(fs.readFileSync(path.join(__dirname, '/../views/nav-bar.html'))).html();
+
+    $('nav-bar').replaceWith(navContent);
     res.send($.html());
 });
 
