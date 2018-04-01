@@ -40,7 +40,7 @@ router.get('/productList', function (req, res, next) {
     res.send($.html());
 });
 
-router.get('/createProduct', function (req, res, next) {
+router.get('/createProduct', isLoggedIn, function (req, res, next) {
     var filePath = path.join(__dirname, '/../views/createProduct.html');
     var $ = cheerio.load(fs.readFileSync(filePath));
 
@@ -50,7 +50,7 @@ router.get('/createProduct', function (req, res, next) {
     res.send($.html());
 });
 
-router.get('/shoppingCart', function (req, res, next) {
+router.get('/shoppingCart', isLoggedIn, function (req, res, next) {
     var filePath = path.join(__dirname, '/../views/shoppingCart.html');
     var $ = cheerio.load(fs.readFileSync(filePath));
 
@@ -59,20 +59,6 @@ router.get('/shoppingCart', function (req, res, next) {
     $('nav-bar').replaceWith(navContent);
     res.send($.html());
 });
-
-/* GET Home Page */
-// router.get('/home', isAuthenticated, function (req, res, next) {
-//     // res.render('home', { user: req.user });
-//     res.send("ooo");
-// });
-
-// router.get('/checkout', isLoggedIn, function (req, res, next) {
-//     res.render('shop/checkout', {
-//         total: cart.totalPrice,
-//         errMsg: errMsg,
-//         noError: !errMsg
-//     });
-// });
 
 // As with any middleware it is quintessential to call next()
 // if the user is authenticated
