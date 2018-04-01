@@ -30,7 +30,7 @@ router.get('/loginWithError', function (req, res, next) {
     res.send($.html());
 });
 
-router.get('/productList', isLoggedIn, function (req, res, next) {
+router.get('/productList', function (req, res, next) {
     var filePath = path.join(__dirname, '/../views/productList.html');
     var $ = cheerio.load(fs.readFileSync(filePath));
 
@@ -54,7 +54,7 @@ router.get('/shoppingCart', function (req, res, next) {
     var filePath = path.join(__dirname, '/../views/shoppingCart.html');
     var $ = cheerio.load(fs.readFileSync(filePath));
 
-    var navContent = cheerio.load(fs.readFileSync(path.join(__dirname, '/../views/nav-bar.html'))).html();
+    var navContent = getNavBar(req.user);
 
     $('nav-bar').replaceWith(navContent);
     res.send($.html());
