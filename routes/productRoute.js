@@ -55,7 +55,6 @@ router.post('/createNewProduct', function(req, res) {
         console.log(fields);
         console.log(files);
     });
-
     form.on('file', function(name, file){
         console.log(name + ': ' + file.name);
         fs.rename(file.path, path.join(form.uploadDir, file.name), function (err) {
