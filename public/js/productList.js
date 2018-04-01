@@ -1,12 +1,4 @@
 $(document).ready(function () {
-    function Product(id, title, type, desc, price) {
-        this.id = id;
-        this.title = title;
-        this.type = type;
-        this.desc = desc;
-        this.price = price;
-        this.quantity = 0;
-    }
 
     $.ajax({
         url: "/product/getFullProducts",
@@ -25,7 +17,7 @@ $(document).ready(function () {
         var product_list = $("#product_list");
         var product_clone = $("#temp_product_grid").clone();
         var product_image = $(product_clone).find("#temp_product_image");
-        var product_name = $(product_clone).find("#temp_product_name");
+        var product_title = $(product_clone).find("#temp_product_title");
         var product_desc = $(product_clone).find("#temp_product_desc");
         var product_price = $(product_clone).find("#temp_product_price");
         var product_button_div = $(product_clone).find("#temp_product_button");
@@ -34,17 +26,17 @@ $(document).ready(function () {
 
         $(product_clone).attr("id", product_id + "_grid");
         $(product_image).attr("id", product_id + "_image");
-        $(product_name).attr("id", product_id + "_name");
+        $(product_title).attr("id", product_id + "_title");
         $(product_desc).attr("id", product_id + "_desc");
         $(product_price).attr("id", product_id + "_price");
         $(product_button_div).attr("id", product_id + "_button");
 
         $(product_image).html("");
-        $(product_name).html(data.title);
+        $(product_title).html(data.title);
         $(product_desc).html(data.description);
         $(product_price).html("HK" + currency(data.price, { formatWithSymbol: true }).format());
         $(product_button).on("click", function () {
-            addToCart(product)
+            addToCart(product);
         });
 
         $(product_list).append(product_clone);
