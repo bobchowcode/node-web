@@ -1,0 +1,11 @@
+#temp_product_grid {
+    display: none;
+}
+.thumbnail {
+    display: block;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+    padding: 0.25rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}

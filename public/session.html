@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+    <input type="button" value="add" id="add">
+    <input type="button" value="get" id="get">
+    <div id="result-table"></div>
+
+    <script>
+    $(document).ready(function() {
+        $( "#add" ).bind( "click", function() {
+            $.ajax({
+                url: '/product/addToCart',
+                contentType: 'application/json; charset=utf-8',
+                type: 'POST',
+                data: JSON.stringify({
+                    "item1":"aaaaa"
+                }),
+                dataType: 'json',
+                success: function(data) {
+                    
+                    
+                }
+            });
+        });
+
+        $( "#get" ).bind( "click", function() {
+            $('#result-table').html("");
+            $.ajax({
+                url: '/product/getCartList',
+                contentType: 'application/json; charset=utf-8',
+                type: 'GET',
+                success: function(res) {
+                    $('#result-table').html(res);	 
+                },
+                error: function(xhr) {
+                    console.log(xhr);
+                    alert('Ajax request error');
+                }
+            });
+        });
+    });    
+    
+    
+    
+    </script>
+
+
+</body>
+
+</html>
