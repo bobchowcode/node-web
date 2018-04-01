@@ -8,25 +8,53 @@
     <script src="jquery/jquery-3.3.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="js/currency.min.js"></script>
-    <link rel="stylesheet" href="css/productList.css">
+    <link rel="stylesheet" href="css/shoppingCart.css">
     <script src="js/shoppingCart.js"></script>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
 <body>
     <nav-bar></nav-bar>
-
     <div id="product_list" class="container">
-        <div id="temp_product_row" class="row">
-            <div id="temp_product_quantity" class="col-sm-2 col-md-2">
+        <h3>Order</h3>
+        <div id="product_header" class="row">
+            <div class="col-sm-2 col-md-2">Quantity</div>
+            <div class="col-sm-6 col-md-6">Title</div>
+            <div class="col-sm-3 col-md-3">Price</div>
+        </div>
+        <div id="temp_product_row" class="product_row row">
+            <div id="temp_product_quantity" class="product_quantity col-sm-2 col-md-2">
                 <span class="badge badge-pill badge-primary"></span>
             </div>
-            <div id="temp_product_title" class="col-sm-6 col-md-6"></div>
-            <div id="temp_product_price" class="col-sm-3 col-md-3"></div>
-            <div id="temp_product_button" class="col-sm-1 col-md-1">
-                <button type="button" class="btn btn-sm btn-dark">-</button>
+            <div id="temp_product_title" class="product_title col-sm-6 col-md-6"></div>
+            <div id="temp_product_price" class="product_price col-sm-3 col-md-3"></div>
+            <div id="temp_product_button" class="product_button col-sm-1 col-md-1">
+                <button type="button" class="btn btn-sm btn-dark">&nbsp;-&nbsp;</button>
             </div>
         </div>
+    </div>
+    <div class="container">
+        <hr>
+    </div>
+    <div id="credit_payment_shipping_addr" class="container">
+        <form method="POST" action="#">
+            <h3>Credit Card Payment</h3>
+            <div id="credit_payment" class="form-group">
+                <label for="cc_input">Credit Card Number</label>
+                <input type="text" name="cc_num" class="form-control" id="cc_input">
+            </div>
+            <hr>
+            <div id="shipping_addr" class="form-group">
+                <h3>Shipping</h3>
+                <label for "addr_input">Address</label>
+                <textarea name="addr" row="2" class="form-control" id="addr_input"></textarea>
+            </div>
+            <div id="submit_button" class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">
+                    Submit
+                </button>
+            </div>
+        </form>
     </div>
 </body>
 

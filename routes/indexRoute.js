@@ -30,7 +30,7 @@ router.get('/loginWithError', function (req, res, next) {
     res.send($.html());
 });
 
-router.get('/productList', isLoggedIn, function (req, res, next) {
+router.get('/productList', function (req, res, next) {
     var filePath = path.join(__dirname, '/../views/productList.html');
     var $ = cheerio.load(fs.readFileSync(filePath));
 
