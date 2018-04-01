@@ -5,12 +5,17 @@ var passport = require('passport');
 var User = require('../models/user');
 
 router.post('/login', passport.authenticate('login', {
-    successRedirect: '/productList.html',
-    failureRedirect: '/login.html',
+    successRedirect: '/productList',
+    failureRedirect: '/loginWithError',
     failureFlash: true
 }));
 // , function (req, res, next) {
 //     console.log(req.user);
 // });
+
+router.get('/logout', function (req, res) {
+    req.logout();
+    res.redirect('/');
+});
 
 module.exports = router;
