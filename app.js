@@ -33,7 +33,7 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-//app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
