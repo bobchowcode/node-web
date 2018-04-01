@@ -5,11 +5,12 @@ var cheerio = require('cheerio');
 var fs = require('fs');
 
 router.get('/', function (req, res, next) {
-    var tmp = path.join(__dirname, '/../views/login.html');
-    var $ = cheerio.load(fs.readFileSync(tmp));
-    $('#test').text('Hello there!');
-    $('#remove').remove();
-    console.log(tmp);
+    var filePath = path.join(__dirname, '/../views/index.html');
+    var $ = cheerio.load(fs.readFileSync(filePath));
+
+    var navContent = cheerio.load(fs.readFileSync(path.join(__dirname, '/../views/nav-bar.html'))).html();
+
+    $('nav-bar').replaceWith(headerContent);
     res.send($.html());
 });
 
