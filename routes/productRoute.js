@@ -89,4 +89,13 @@ router.post('/createNewProduct', function (req, res) {
     });
 });
 
+router.get('/getFeaturedProducts', function (req, res, next) {
+    Product.find({"featured":true}).exec(function (err, docs) {
+        if (err) {
+            res.send(err);
+        }
+        res.send(docs);
+    });
+});
+
 module.exports = router;

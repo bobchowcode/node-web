@@ -27,7 +27,7 @@ app.use(session({
     store: new MongoStore({ url: mongodbUrl }),
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 60 * 1000 }
+    cookie: { maxAge: 60 * 60 * 1000 }
 }));
 app.use(flash());
 app.use(passport.initialize());
