@@ -12,6 +12,7 @@ const MongoStore = require('connect-mongo')(session);
 var routes = require('./routes/indexRoute');
 var userRoutes = require('./routes/userRoute');
 var productRoutes = require('./routes/productRoute');
+var orderRoutes = require('./routes/orderRoute');
 
 var config = require("./config");
 
@@ -41,6 +42,7 @@ app.use(bodyParser.json());
 app.use('/', routes);
 app.use('/product', productRoutes);
 app.use('/user', userRoutes);
+app.use('/order', orderRoutes);
 
 var port = process.env.PORT || 3000;
 app.listen(port, function () {

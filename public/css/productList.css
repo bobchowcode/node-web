@@ -13,6 +13,7 @@
     width: 240px;
     height: 300px;
 }
+<<<<<<< HEAD
 .product_title, .product_price {
     font-weight: bold;
 }
@@ -25,3 +26,5 @@
         width: 100%;
     }
 }
+=======
+>>>>>>> ea0c76aca7a601739c2a2c220a031149fb9b350b
