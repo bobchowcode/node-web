@@ -7,8 +7,9 @@ $(document).ready(function () {
             for (var i = 0; i < data.length; i++) {
                 createProductRow(i, data[i]);
             }
-            $("#loading-panel").fadeOut("fast");
         }
+    }).always(function() {
+        $("#loading-panel").fadeOut("fast");
     });
 
     function createProductRow(i, data) {

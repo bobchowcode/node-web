@@ -8,8 +8,9 @@ $(document).ready(function () {
             for (var i = 0; i < data.length; i++) {
                 createProductGrid(i, data[i]);
             }
-            $("#loading-panel").fadeOut("fast");
         }
+    }).always(function() {
+        $("#loading-panel").fadeOut("fast");
     });
 
     function createProductGrid(i, data) {
