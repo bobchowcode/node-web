@@ -40,7 +40,7 @@ router.post('/addToCart', function (req, res, next) {
     }
     req.session.cartList = cartList;
 
-    res.send("success");
+    res.json({res:"success"});
 });
 
 router.get('/getCartList', function (req, res, next) {
@@ -84,7 +84,7 @@ router.post('/minusProduct', function (req, res, next) {
     }
     req.session.cartList = cartList;
 
-    res.send("success");
+    res.json({res:"success"});
 });
 
 router.post('/createNewProduct', function (req, res) {
