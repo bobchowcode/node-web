@@ -16,10 +16,18 @@
 
 <body>
     <nav-bar></nav-bar>
+    <div id="loading-panel">
+        <table>
+            <tr>
+                <td class="align-middle">
+                    <div id="loader" class="mx-auto "></div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
     <div class="row">
-        <div class="col-md-5"></div>
-        <div class="col-md-6">
+        <div class="mx-auto">
             <div class="form-control-feedback">
                 <span id="sys-msg" class="text-success align-middle">
                 </span>
@@ -39,7 +47,8 @@
                     <div id="temp_product_price" class="product_price"></div>
                     <div id="temp_product_button" class="product_button">
                         <button type="button" class="btn btn-sm btn-primary btn-block">
-                            Add to Cart
+                            <i class="fa fa-plus"></i>
+                            <span>Add to Cart</span>
                         </button>
                     </div>
                 </div>

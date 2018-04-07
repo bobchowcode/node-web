@@ -8,6 +8,7 @@ $(document).ready(function () {
             for (var i = 0; i < data.length; i++) {
                 createProductGrid(i, data[i]);
             }
+            $("#loading-panel").fadeOut("fast");
         }
     });
 
@@ -43,6 +44,7 @@ $(document).ready(function () {
     }
 
     function addToCart(product) {
+        $("#loading-panel").fadeIn("fast");
         $.ajax({
             url: "/product/addToCart",
             method: "POST",
@@ -50,12 +52,10 @@ $(document).ready(function () {
             dataType: "json",
             data: JSON.stringify(product),
             success: function (data) {
-                if (data === "success") {
-                    alert("success");
-                } else {
-                    alert("abc");
-                }
+                
             }
+        }).always(function() {
+            $("#loading-panel").fadeOut("fast");
         });
     }
 });
