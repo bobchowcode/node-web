@@ -8,6 +8,7 @@ $(document).ready(function () {
             for (var i = 0; i < data.length; i++) {
                 createProductGrid(i, data[i]);
             }
+            $("#loading-panel").fadeOut("slow");
         }
     });
 
