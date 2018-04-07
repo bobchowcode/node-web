@@ -7,7 +7,7 @@ var _ = require('lodash');
 
 var Product = require('../models/product');
 
-router.get('/getFullProducts', function (req, res, next) {
+router.get('/getFullProducts', isLoggedIn, function (req, res, next) {
     Product.find(function (err, docs) {
         if (err) {
             res.send(err);
@@ -16,7 +16,7 @@ router.get('/getFullProducts', function (req, res, next) {
     });
 });
 
-router.post('/addToCart', function (req, res, next) {
+router.post('/addToCart', isLoggedIn, function (req, res, next) {
     console.log("addToCart");
     console.log(req.session);
     var cartList;
@@ -43,7 +43,7 @@ router.post('/addToCart', function (req, res, next) {
     res.json({res:"success"});
 });
 
-router.get('/getCartList', function (req, res, next) {
+router.get('/getCartList', isLoggedIn, function (req, res, next) {
     console.log("getCartList");
     console.log(req.session);
 
@@ -60,7 +60,7 @@ router.get('/getCartList', function (req, res, next) {
     res.send(req.session.cartList);
 });
 
-router.post('/minusProduct', function (req, res, next) {
+router.post('/minusProduct', isLoggedIn, function (req, res, next) {
     console.log("minusProduct");
     console.log(req.session);
     var cartList;
@@ -122,5 +122,12 @@ router.get('/getFeaturedProducts', function (req, res, next) {
         res.send(docs);
     });
 });
+
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/');
+}
 
 module.exports = router;
