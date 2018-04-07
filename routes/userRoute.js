@@ -13,6 +13,12 @@ router.post('/login', passport.authenticate('login', {
 //     console.log(req.user);
 // });
 
+router.post('/signup', passport.authenticate('signup', {
+    successRedirect: '/productList',
+    failureRedirect: '/signupWithError',
+    failureFlash: true
+}));
+
 router.get('/logout', function (req, res) {
     // req.logout();
     // res.redirect('/');

@@ -30,6 +30,22 @@ router.get('/loginWithError', function (req, res, next) {
     res.send($.html());
 });
 
+router.get('/signupPage', function (req, res, next) {
+    var filePath = path.join(__dirname, '/../views/signup.html');
+    var $ = cheerio.load(fs.readFileSync(filePath));
+    res.send($.html());
+});
+
+router.get('/signupWithError', function (req, res, next) {
+    var filePath = path.join(__dirname, '/../views/signup.html');
+    var $ = cheerio.load(fs.readFileSync(filePath));
+
+    var errMsg = req.flash('errMsg');
+
+    $('span#errMsg').text(errMsg);
+    res.send($.html());
+});
+
 router.get('/productList', isLoggedIn, function (req, res, next) {
     var filePath = path.join(__dirname, '/../views/productList.html');
     var $ = cheerio.load(fs.readFileSync(filePath));
