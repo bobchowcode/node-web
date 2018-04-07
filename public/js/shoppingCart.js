@@ -7,6 +7,7 @@ $(document).ready(function () {
             for (var i = 0; i < data.length; i++) {
                 createProductRow(i, data[i]);
             }
+            $("#loading-panel").fadeOut("fast");
         }
     });
 
@@ -36,14 +37,18 @@ $(document).ready(function () {
             product.quantity--;
             $(product_quantity_span).html(data.quantity);
             if (product.quantity <= 0) {
-                $(product_clone).remove();
+                $(product_clone).slideUp("slow", function() {
+                    $(product_clone).remove();
+                });
             }
         });
-
+        $(product_clone).hide();
         $(product_list).append(product_clone);
+        $(product_clone).fadeIn("slow");
     }
 
     function minusProduct(product) {
+        $("#loading-panel").fadeIn("fast");
         $.ajax({
             url: "/product/minusProduct",
             method: "POST",
@@ -51,12 +56,10 @@ $(document).ready(function () {
             dataType: "json",
             data: JSON.stringify(product),
             success: function (data) {
-                if (data === "success") {
-                    alert("success");
-                } else {
-                    alert("abc");
-                }
+               
             }
+        }).always(function() {
+            $("#loading-panel").fadeOut("fast");
         });
     }
 });
