@@ -8,9 +8,10 @@
     <script src="jquery/jquery-3.3.1.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- <script src="js/currency.min.js"></script>
-    <link rel="stylesheet" href="css/productList.css">
-    <script src="js/productList.js"></script> -->
+    <!-- <script src="js/currency.min.js"></script> -->
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="js/plotly-latest.min.js"></script>
+    <script src="js/dashboard.js"></script>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 
@@ -44,6 +45,10 @@
                 </a>
             </div>
         </div>
+        <div class="row">
+                <h3>Sold Statistic</h3>
+                <div id="sold_graph"></div>
+            </div>
     </div>
 
     <div id="newGameModal" class="modal fade" role="dialog">
