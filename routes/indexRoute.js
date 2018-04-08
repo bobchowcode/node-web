@@ -56,15 +56,15 @@ router.get('/productList', isLoggedIn, function (req, res, next) {
     res.send($.html());
 });
 
-router.get('/createProduct', isLoggedIn, function (req, res, next) {
-    var filePath = path.join(__dirname, '/../views/createProduct.html');
-    var $ = cheerio.load(fs.readFileSync(filePath));
+// router.get('/createProduct', isLoggedIn, function (req, res, next) {
+//     var filePath = path.join(__dirname, '/../views/createProduct.html');
+//     var $ = cheerio.load(fs.readFileSync(filePath));
 
-    var navContent = getNavBar(req.user);
+//     var navContent = getNavBar(req.user);
 
-    $('nav-bar').replaceWith(navContent);
-    res.send($.html());
-});
+//     $('nav-bar').replaceWith(navContent);
+//     res.send($.html());
+// });
 
 router.get('/shoppingCart', isLoggedIn, function (req, res, next) {
     var filePath = path.join(__dirname, '/../views/shoppingCart.html');

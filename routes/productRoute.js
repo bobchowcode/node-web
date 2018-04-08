@@ -87,7 +87,7 @@ router.post('/minusProduct', isLoggedIn, function (req, res, next) {
     res.json({ res: "success" });
 });
 
-router.post('/createNewProduct', function (req, res) {
+router.post('/createNewProduct', isLoggedIn, function (req, res) {
     var form = new formidable.IncomingForm();
     form.encoding = 'utf-8';
     form.uploadDir = path.join(__dirname, '/../public/images');
