@@ -5,13 +5,15 @@ var passport = require('passport');
 var User = require('../models/user');
 
 router.post('/login', passport.authenticate('login', {
-    successRedirect: '/productList',
     failureRedirect: '/loginWithError',
     failureFlash: true
-}));
-// , function (req, res, next) {
-//     console.log(req.user);
-// });
+}), function (req, res, next) {
+    if (req.user.role === "admin") {
+        res.redirect('/dashboard');
+    } else {
+        res.redirect('/productList');
+    }
+});
 
 router.post('/signup', passport.authenticate('signup', {
     successRedirect: '/productList',

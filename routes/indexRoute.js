@@ -91,10 +91,9 @@ router.get('/dashboard', isAdminLoggedIn, function (req, res, next) {
     var filePath = path.join(__dirname, '/../views/dashboard.html');
     var $ = cheerio.load(fs.readFileSync(filePath));
 
-    // var navContent = getNavBar(req.user);
-    // $('nav-bar').replaceWith(navContent);
+    var navContent = getNavBar(req.user);
+    $('nav-bar').replaceWith(navContent);
 
-    // $('#sys-msg').html('<strong>Transaction Success!</strong>')
     res.send($.html());
 });
 
@@ -117,7 +116,9 @@ function isAdminLoggedIn(req, res, next) {
 
 function getNavBar(user) {
     var navContent;   
-    if (user) {
+    if (user && user.role === "admin") {
+        navContent = cheerio.load(fs.readFileSync(path.join(__dirname, '/../views/nav-bar-admin.html'))).html();
+    } else if (user) {
         navContent = cheerio.load(fs.readFileSync(path.join(__dirname, '/../views/nav-bar-user.html'))).html();
     } else {
         navContent = cheerio.load(fs.readFileSync(path.join(__dirname, '/../views/nav-bar-guest.html'))).html();
