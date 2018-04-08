@@ -109,7 +109,7 @@ router.post('/createNewProduct', function (req, res) {
             res.redirect('/dashboard');
         });
     });
-    // Then below code are not required.
+    // The below code are not required.
 
     // form.on('file', function (name, file) {
     //     console.log(name + ': ' + file.name);
