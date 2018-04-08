@@ -17,7 +17,7 @@ router.post('/checkout', isLoggedIn, function (req, res, next) {
     });
 });
 
-router.get('/getSoldGameStatistic', function (req, res, next) {
+router.get('/getSoldGameStatistic', isLoggedIn, function (req, res, next) {
     var query = Order.find({}).select({ "cart.title": 1, "cart.quantity": 1, "_id": 0});
     query.exec(function (err, docs) {
         if (err) {
