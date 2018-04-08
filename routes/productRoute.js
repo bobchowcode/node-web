@@ -29,7 +29,7 @@ router.post('/addToCart', isLoggedIn, function (req, res, next) {
     if (cartList.length == 0) {
         cartList.push(req.body);
     } else {
-        var idx = _.findIndex(cartList, function(o) {
+        var idx = _.findIndex(cartList, function (o) {
             return o._id === req.body._id;
         });
         if (idx >= 0) {
@@ -40,7 +40,7 @@ router.post('/addToCart', isLoggedIn, function (req, res, next) {
     }
     req.session.cartList = cartList;
 
-    res.json({res:"success"});
+    res.json({ res: "success" });
 });
 
 router.get('/getCartList', isLoggedIn, function (req, res, next) {
@@ -70,21 +70,21 @@ router.post('/minusProduct', isLoggedIn, function (req, res, next) {
         cartList = [];
     }
     if (cartList.length > 0) {
-        var idx = _.findIndex(cartList, function(o) {
+        var idx = _.findIndex(cartList, function (o) {
             return o._id === req.body._id;
         });
         if (idx >= 0) {
             cartList[idx].quantity--;
         }
         if (cartList[idx].quantity <= 0) {
-            _.remove(cartList, function(o) {
+            _.remove(cartList, function (o) {
                 return o._id === cartList[idx]._id;
             });
         }
     }
     req.session.cartList = cartList;
 
-    res.json({res:"success"});
+    res.json({ res: "success" });
 });
 
 router.post('/createNewProduct', function (req, res) {
@@ -97,25 +97,38 @@ router.post('/createNewProduct', function (req, res) {
         if (err) throw err;
         console.log(fields);
         console.log(files);
+
+        var product = new Product({
+            title: fields.title,
+            type: fields.type,
+            description: fields.description,
+            price: fields.price,
+            imgPath: path.basename(files.image.path)
+        });
+        product.save(function (err, doc) {
+            res.redirect('/dashboard');
+        });
     });
-    form.on('file', function (name, file) {
-        console.log(name + ': ' + file.name);
-        if (file.name) {
-            fs.rename(file.path, path.join(form.uploadDir, file.name), function (err) {
-                if (err) throw err;
-            });
-        }
-    });
-    form.on('field', function (name, value) {
-        console.log(name + ': ' + value);
-    });
-    form.on('end', function () {
-        res.end();
-    });
+    // Then below code are not required.
+
+    // form.on('file', function (name, file) {
+    //     console.log(name + ': ' + file.name);
+    //     if (file.name) {
+    //         fs.rename(file.path, path.join(form.uploadDir, file.name), function (err) {
+    //             if (err) throw err;
+    //         });
+    //     }
+    // });
+    // form.on('field', function (name, value) {
+    //     console.log(name + ': ' + value);
+    // });
+    // form.on('end', function () {
+    //     res.redirect('/dashboard');
+    // });
 });
 
 router.get('/getFeaturedProducts', function (req, res, next) {
-    Product.find({"featured":true}).exec(function (err, docs) {
+    Product.find({ "featured": true }).exec(function (err, docs) {
         if (err) {
             res.send(err);
         }

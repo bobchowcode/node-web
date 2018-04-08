@@ -27,7 +27,7 @@ $(document).ready(function () {
         $(product_title).attr("id", product_id + "_title");
         $(product_desc).attr("id", product_id + "_desc");
 
-        $(product_image).attr("src", "images/"+product._id+".png");
+        $(product_image).attr("src", "images/"+product.imgPath);
         $(product_title).html(data.title);
         $(product_desc).html(data.description);
 
