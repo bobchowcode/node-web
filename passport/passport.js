@@ -30,7 +30,7 @@ passport.use('login', new LocalStrategy({
         }
         // User exists but wrong password, log the error 
         // if (!isValidPassword(user, password)){
-        if (password !== user.password) {
+        if (!user.validPassword(password)) {
           console.log('Invalid Password');
           return done(null, false,
             req.flash('message', 'Invalid Password'));

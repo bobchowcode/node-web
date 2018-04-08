@@ -83,7 +83,18 @@ router.get('/successCheckOut', isLoggedIn, function (req, res, next) {
     var navContent = getNavBar(req.user);
     $('nav-bar').replaceWith(navContent);
 
-    $('#sys-msg').html('<strong>Transaction Success!</strong>')
+    $('#sys-msg').html('<strong>Transaction Success!</strong>');
+    res.send($.html());
+});
+
+router.get('/dashboard', isAdminLoggedIn, function (req, res, next) {
+    var filePath = path.join(__dirname, '/../views/dashboard.html');
+    var $ = cheerio.load(fs.readFileSync(filePath));
+
+    // var navContent = getNavBar(req.user);
+    // $('nav-bar').replaceWith(navContent);
+
+    // $('#sys-msg').html('<strong>Transaction Success!</strong>')
     res.send($.html());
 });
 
@@ -92,6 +103,13 @@ router.get('/successCheckOut', isLoggedIn, function (req, res, next) {
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect('/');
+}
+
+function isAdminLoggedIn(req, res, next) {
+    if (req.isAuthenticated() && req.user.role === "admin") {
         return next();
     }
     res.redirect('/');
