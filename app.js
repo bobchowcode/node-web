@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var flash = require('connect-flash');
 var expressSession = require('express-session');
+var favicon = require('serve-favicon')
 
 var session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
@@ -22,6 +23,7 @@ var mongodbUrl = "mongodb://" + config.mongodb.username + ":" + config.mongodb.p
 mongoose.connect(mongodbUrl);
 require('./passport/passport');
 
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(cookieParser());
 app.use(session({
     secret: '4346E88ED53FDE699158DAE8CDF7B', 
