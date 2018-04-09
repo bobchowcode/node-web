@@ -97,6 +97,16 @@ router.get('/dashboard', isAdminLoggedIn, function (req, res, next) {
     res.send($.html());
 });
 
+router.get('/productListAdmin', isAdminLoggedIn, function (req, res, next) {
+    var filePath = path.join(__dirname, '/../views/productListAdmin.html');
+    var $ = cheerio.load(fs.readFileSync(filePath));
+
+    var navContent = getNavBar(req.user);
+    $('nav-bar').replaceWith(navContent);
+
+    res.send($.html());
+});
+
 // As with any middleware it is quintessential to call next()
 // if the user is authenticated
 

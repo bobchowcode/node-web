@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Maintain Game List</title>
+
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="jquery/jquery-3.3.1.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <script src="js/currency.min.js"></script>
+    <link rel="stylesheet" href="css/productList.css">
+    <script src="js/productList.js"></script>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+    <nav-bar></nav-bar>
+    <div id="loading-panel">
+        <table>
+            <tr>
+                <td class="align-middle">
+                    <div id="loader" class="mx-auto "></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="container">
+
+        <div class="row">
+            <div class="mx-auto">
+                <p style="padding:10px;"></p>
+                <a type="button" class="btn btn-warning btn-block" id="reserve-btn" data-toggle="modal" data-target="#newGameModal">
+                    <strong> Add New Game </strong>
+                </a>
+                <p style="padding:10px;"></p>
+            </div>
+        </div>
+
+        <div id="product_list" class="row">
+            <div id="temp_product_grid" class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <div>
+                        <img id="temp_product_image" class="img-thumbnail">
+                    </div>
+                    <div id="temp_product_title" class="product_title"></div>
+                    <div id="temp_product_desc"></div>
+                    <div id="temp_product_price" class="product_price"></div>
+                    <div id="temp_product_button" class="product_button">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="newGameModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Game</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="/product/createNewProduct" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="product_title">Title</label>
+                            <input type="text" class="form-control" name="title" id="product_title">
+                        </div>
+                        <div class="form-group">
+                            <label for="product_type">Type</label>
+                            <input type="text" class="form-control" name="type" id="product_type">
+                        </div>
+                        <div class="form-group">
+                            <label for="product_desc">Description</label>
+                            <textarea class="form-control" rows="6" name="description" id="product_desc"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="product_price">Price</label>
+                            <input type="text" class="form-control" name="price" id="product_price">
+                        </div>
+                        <div class="form-group">
+                            <label for="product_image">Image</label>
+                            <input type="file" accept="image/*" class="form-control" name="image" id="product_image">
+                        </div>
+                        <button type="submit" class="btn btn-info btn-sm">
+                            Submit
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
