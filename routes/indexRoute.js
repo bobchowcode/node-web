@@ -117,9 +117,13 @@ function isAdminLoggedIn(req, res, next) {
 function getNavBar(user) {
     var navContent;   
     if (user && user.role === "admin") {
-        navContent = cheerio.load(fs.readFileSync(path.join(__dirname, '/../views/nav-bar-admin.html'))).html();
+        $ = cheerio.load(fs.readFileSync(path.join(__dirname, '/../views/nav-bar-admin.html')));
+        $('user').replaceWith(user.username);
+        navContent = $.html();
     } else if (user) {
-        navContent = cheerio.load(fs.readFileSync(path.join(__dirname, '/../views/nav-bar-user.html'))).html();
+        $ = cheerio.load(fs.readFileSync(path.join(__dirname, '/../views/nav-bar-user.html')));
+        $('user').replaceWith(user.username);
+        navContent = $.html();
     } else {
         navContent = cheerio.load(fs.readFileSync(path.join(__dirname, '/../views/nav-bar-guest.html'))).html();
     }
