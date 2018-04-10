@@ -106,7 +106,7 @@ router.post('/createNewProduct', isLoggedIn, function (req, res) {
             imgPath: path.basename(files.image.path)
         });
         product.save(function (err, doc) {
-            res.redirect('/dashboard');
+            res.redirect('/productListAdmin');
         });
     });
     // The below code are not required.

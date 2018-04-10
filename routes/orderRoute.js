@@ -1,6 +1,7 @@
 var express = require('express');
 var _ = require('lodash');
 var router = express.Router();
+var moment = require('moment');
 
 var Order = require('../models/order');
 
@@ -9,7 +10,8 @@ router.post('/checkout', isLoggedIn, function (req, res, next) {
         user: req.user,
         cart: req.session.cartList,
         address: req.body.addr,
-        ccNo: req.body.cc_num
+        ccNo: req.body.cc_num,
+        date: moment()
     });
     order.save(function (err, result) {
         req.session.cartList = null;
@@ -39,6 +41,19 @@ router.get('/getSoldGameStatistic', isLoggedIn, function (req, res, next) {
         })
 
         res.send(result);
+    });
+});
+
+router.get('/getOrderHistory', isLoggedIn, function (req, res, next) {
+    var query = Order.find({ "user":req.user._id})
+                .select({ "cart": 1, "date": 1, "_id": 0})
+                .sort("-date");
+    query.exec(function (err, docs) {
+        if (err) {      
+            return next(err);
+        }
+
+        res.send(docs);
     });
 });
 
