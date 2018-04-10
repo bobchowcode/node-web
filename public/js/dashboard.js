@@ -6,7 +6,7 @@ $(document).ready(function () {
         success: function (data) {
             createGraph(data);
         }
-    }).always(function() {
+    }).always(function () {
         $("#loading-panel").fadeOut("fast");
     });
 
@@ -16,6 +16,11 @@ $(document).ready(function () {
             y: data.y,
             type: 'bar'
         }];
-        Plotly.newPlot('sold_graph', graphData);
+
+        var layout = {
+            title: 'Sold Statistic'
+        };
+
+        Plotly.plot('sold_graph', graphData, layout);
     }
 });
