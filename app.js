@@ -5,8 +5,8 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var flash = require('connect-flash');
 var expressSession = require('express-session');
-var favicon = require('serve-favicon')
-
+var favicon = require('serve-favicon');
+var helmet = require('helmet');
 var session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
@@ -19,10 +19,13 @@ var config = require("./config");
 
 var app = express();
 
+app.use(helmet());
+
 var mongodbUrl = "mongodb://" + config.mongodb.username + ":" + config.mongodb.password + "@" + config.mongodb.url + "/" + config.mongodb.database + "?replicaSet=eu-6";
 mongoose.connect(mongodbUrl);
 require('./passport/passport');
 
+app.disable('x-powered-by');
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(cookieParser());
 app.use(session({
