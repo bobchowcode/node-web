@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    var typeList = ["All"];
 
     $.ajax({
         url: "/product/getFullProducts",
@@ -8,9 +9,18 @@ $(document).ready(function () {
             for (var i = 0; i < data.length; i++) {
                 createProductGrid(i, data[i]);
             }
+            createDropDown();
         }
     }).always(function() {
         $("#loading-panel").fadeOut("fast");
+    });
+
+    $("#filterType").change(function() {
+        var type = $("#filterType option:selected").val();
+        $(".product_grid").show();
+        if (type !== "all") {
+            $(".product_grid").not(".type_"+type).hide();
+        }
     });
 
     function createProductGrid(i, data) {
@@ -25,8 +35,11 @@ $(document).ready(function () {
         var product_button_div = $(product_clone).find("#temp_product_button");
         var product_button = $(product_button_div).find("button");
         var product_id = "product_" + idx;
+        var tempType = product.type.trim();
 
         $(product_clone).attr("id", product_id + "_grid");
+        $(product_clone).addClass("product_grid");
+        $(product_clone).addClass("type_" + tempType.toLowerCase());
         $(product_image).attr("id", product_id + "_image");
         $(product_title).attr("id", product_id + "_title");
         $(product_desc).attr("id", product_id + "_desc");
@@ -42,6 +55,10 @@ $(document).ready(function () {
         });
 
         $(product_list).append(product_clone);
+
+        if (typeList.indexOf(tempType) == -1) {
+            typeList.push(tempType);
+        }
     }
 
     function addToCart(product) {
@@ -58,5 +75,15 @@ $(document).ready(function () {
         }).always(function() {
             $("#loading-panel").fadeOut("fast");
         });
+    }
+
+    function createDropDown() {
+        var filterType = $("#filterType");
+        for (var i = 0; i < typeList.length; i++) {
+            var type = document.createElement("option");
+            $(type).html(typeList[i]);
+            $(type).attr("value", typeList[i].toLowerCase());
+            $(filterType).append(type);
+        }
     }
 });
