@@ -6,9 +6,9 @@ var schema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: 'User' },
     cart: { type: Object, required: true },
     address: { type: String, required: true },
-    // name: {type: String, required: true},
     ccNo: { type: String, required: true },
-    date: { type: Date, default: Date.now, required: true }
+    date: { type: Date, default: Date.now, required: true },
+    total: {type: Number, required: true}
 });
 
 schema.methods.encryptCCNo = function (ccNo) {

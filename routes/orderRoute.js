@@ -6,13 +6,16 @@ var moment = require('moment');
 var Order = require('../models/order');
 
 router.post('/checkout', isLoggedIn, function (req, res, next) {
-    var order = new Order({
-        user: req.user,
-        cart: req.session.cartList,
-        address: req.body.addr,
-        ccNo: req.body.cc_num,
-        date: moment()
+    var order = new Order();
+    order.user = req.user;
+    order.cart = req.session.cartList;
+    order.address = req.body.addr;
+    order.ccNo = order.encryptCCNo(req.body.cc_num);
+    order.date = moment();
+    order.total = _.sumBy(req.session.cartList, function(o) {
+        return o.price * o.quantity;
     });
+
     order.save(function (err, result) {
         req.session.cartList = null;
         res.redirect('/successCheckOut');
