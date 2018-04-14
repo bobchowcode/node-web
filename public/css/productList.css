@@ -33,6 +33,9 @@
 #temp_product_grid {
     display: none;
 }
+#temp_order_record {
+    display: none;
+}
 .thumbnail {
     display: block;
     border: 1px solid #ddd;
@@ -56,6 +59,26 @@
 .product_button button {
     width: 150px;
     margin: auto;
+}
+.order_records {
+    padding-top: 1em;
+}
+.order_info {
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: 0.3s;
+}
+.order_info:hover {
+    border: 1px solid #28a745;
+    border-radius: 0.25rem;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.order_details {
+    display: none;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+.order_total_cost {
+    text-align: right;
 }
 @media (max-width: 768px) {
     .product_button button {

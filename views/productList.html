@@ -46,6 +46,9 @@
                     </select>
                 </div>
             </form>
+            <div class="ml-auto col-auto">
+                <button id="orderHistorybutton" type="button" class="btn btn-info">Order History</button>
+            </div>
         </div>
         <div id="product_list" class="row">
             <div id="temp_product_grid" class="col-sm-6 col-md-4">
@@ -61,6 +64,36 @@
                             <i class="fa fa-plus"></i>
                             <span>Add to Cart</span>
                         </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="orderHistoryModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Order History</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="orderHistoryContainer" class="modal-body">
+                    <div id="temp_order_record">
+                        <div id="temp_order_info" class="order_info">
+                            <div class="d-flex justify-content-between">
+                                <h6 id="temp_order_date"></h6>
+                                <h5 id="temp_order_total" class="order_total_cost text-success"></h5>
+                            </div>
+                            <ul id="temp_order_detail" class="order_details list-group list-group-flush">
+                                <li id="temp_order_product" class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span id="temp_product_title"></span>
+                                    <span id="temp_product_quantity" class="badge badge-pill badge-success"></span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -49,7 +49,7 @@ router.get('/getSoldGameStatistic', isLoggedIn, function (req, res, next) {
 
 router.get('/getOrderHistory', isLoggedIn, function (req, res, next) {
     var query = Order.find({ "user":req.user._id})
-                .select({ "cart": 1, "date": 1, "_id": 0})
+                .select({ "cart": 1, "date": 1, "total": 1, "_id": 0})
                 .sort("-date");
     query.exec(function (err, docs) {
         if (err) {      

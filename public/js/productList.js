@@ -23,6 +23,24 @@ $(document).ready(function () {
         }
     });
 
+    $("#orderHistorybutton").click(function() {
+        $("#loading-panel").fadeIn("fast");
+        var a = $("#orderHistoryContainer .order_records").remove();
+        $.ajax({
+            url: "/order/getOrderHistory",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data) {
+                for (var i = 0; i< data.length; i++) {
+                    renderOrderHistory(i, data[i]);
+                }
+                $("#orderHistoryModal").modal("show");
+            }
+        }).always(function() {
+            $("#loading-panel").fadeOut("fast");
+        });
+    });
+
     function createProductGrid(i, data) {
         var idx = i;
         var product = data;
@@ -85,5 +103,51 @@ $(document).ready(function () {
             $(type).attr("value", typeList[i].toLowerCase());
             $(filterType).append(type);
         }
+    }
+
+    function renderOrderHistory(i, data) {
+        var idx = i;
+        var order = data;
+        var orderHistoryContainer = $("#orderHistoryContainer");
+        var order_clone = $("#temp_order_record").clone();
+        var order_info = $(order_clone).find("#temp_order_info");
+        var order_date = $(order_info).find("#temp_order_date");
+        var order_detail = $(order_clone).find("#temp_order_detail");
+        var order_total = $(order_clone).find("#temp_order_total");
+
+        var orderStr = "order_" + idx;
+
+        $(order_clone).attr("id", orderStr + "_record");
+        $(order_clone).addClass("order_records");
+        $(order_info).attr("id", orderStr + "_info");
+        $(order_date).attr("id", orderStr + "_date");
+        $(order_detail).attr("id", orderStr + "_detail");
+        $(order_total).attr("id", orderStr + "_total");
+        $(order_detail).empty();
+
+        $(order_date).html((new Date(order.date)).toLocaleString());
+        $(order_total).html("Total: HK" + currency(order.total, { formatWithSymbol: true }).format());
+
+        for (var j = 0; j < order.cart.length; j++) {
+            var order_product = $("#temp_order_product").clone();
+            var product_quantity = $(order_product).find("#temp_product_quantity");
+            var product_title = $(order_product).find("#temp_product_title");
+
+            var productStr = orderStr + "_product_" + j;
+            $(order_product).attr("id", productStr);
+            $(product_quantity).attr("id", productStr + "_quantity");
+            $(product_title).attr("id", productStr + "_title");
+
+            $(product_quantity).html(order.cart[j].quantity);
+            $(product_title).html(order.cart[j].title);
+
+            $(order_detail).append(order_product);
+        }
+
+        $(order_info).click(function() {
+            $(order_detail).slideToggle("slow");
+        });
+
+        $(orderHistoryContainer).append(order_clone);
     }
 });
