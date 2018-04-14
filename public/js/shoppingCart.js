@@ -39,14 +39,14 @@ $(document).ready(function () {
         $(product_quantity_span).html(product.quantity);
         $(product_price).html("HK" + currency(product_cost, { formatWithSymbol: true }).format());
         $(product_button).on("click", function () {
-            minusProduct(product, product_clone, product_quantity_span);
+            minusProduct(product, product_clone, product_quantity_span, product_price);
         });
         $(product_clone).hide();
         $(product_list).append(product_clone);
         $(product_clone).fadeIn("slow");
     }
 
-    function minusProduct(product, product_elem, product_elem_quantity) {
+    function minusProduct(product, product_elem, product_elem_quantity, product_elem_price) {
         $("#loading-panel").fadeIn("fast");
         $.ajax({
             url: "/product/minusProduct",
@@ -58,6 +58,7 @@ $(document).ready(function () {
                if (data.res === "success") {
                    product.quantity--;
                    $(product_elem_quantity).html(product.quantity);
+                   $(product_elem_price).html("HK" + currency(product.price*product.quantity, { formatWithSymbol: true }).format());
                    if (product.quantity <= 0) {
                        $(product_elem).slideUp("slow", function() {
                            $(product_elem).remove();
